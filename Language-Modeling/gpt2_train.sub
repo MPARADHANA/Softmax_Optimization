@@ -1,0 +1,72 @@
+#!/bin/zsh
+#filename: whisper_small_train.sub
+
+#SBATCH --nodes=1
+#SBATCH --gres=gpu:1
+#SBATCH -A debug
+#SBATCH --time=0-00:29:00
+
+module load anaconda
+conda activate Generation
+cd ./transformers/examples/pytorch/speech-recognition/
+export HUGGINGFACE_HUB_CACHE=/scratch/gilbreth/amohanpa/cache_for_Generation
+export TRANSFORMERS_CACHE=/scratch/gilbreth/amohanpa/cache_for_Generation
+export HF_CACHE_HOME=/scratch/gilbreth/amohanpa/cache_for_Generation
+export HF_DATASETS_CACHE=/scratch/gilbreth/amohanpa/cache_for_Generation
+
+# python run_clm_no_trainer.py \
+#     --model_name_or_path openai-community/gpt2 \
+#     --dataset_name wikitext \
+#     --dataset_config_name wikitext-2-raw-v1 \
+#     --per_device_train_batch_size 8 \
+#     --per_device_eval_batch_size 8 \
+#     --with_tracking \
+#     --num_train_epochs 3\
+#     --seed 42\
+#     --learning_rate 5e-5\
+#     --output_dir /scratch/gilbreth/amohanpa/gpt2/wikitext2/baseline/
+
+
+
+#Eval
+# python run_clm_no_trainer.py \
+#     --model_name_or_path /scratch/gilbreth/amohanpa/gpt2/wikitext2/baseline/ \
+#     --dataset_name wikitext \
+#     --dataset_config_name wikitext-2-raw-v1 \
+#     --per_device_train_batch_size 8 \
+#     --per_device_eval_batch_size 8 \
+#     --with_tracking \
+#     --num_train_epochs 0\
+#     --seed 42\
+#     --learning_rate 5e-5\
+#     --output_dir /scratch/gilbreth/amohanpa/gpt2/wikitext2/Trial/
+
+# python run_clm.py \
+#     --model_name_or_path /scratch/gilbreth/amohanpa/gpt2/wikitext2/baseline/\
+#     --dataset_name wikitext \
+#     --dataset_config_name wikitext-2-raw-v1 \
+#     --per_device_train_batch_size 8 \
+#     --per_device_eval_batch_size 8 \
+#     --do_eval \
+#     --bf16_full_eval \
+#     --output_dir /scratch/gilbreth/amohanpa/Trial/
+
+# python run_clm.py \
+#     --model_name_or_path /scratch/gilbreth/amohanpa/gpt2/wikitext2/16channelModel/WithInit/16ChannelNoMaskThreshold315/head-by-head-seq_7_2_initfixed/ \
+#     --dataset_name wikitext \
+#     --dataset_config_name wikitext-2-raw-v1 \
+#     --per_device_train_batch_size 8 \
+#     --per_device_eval_batch_size 8 \
+#     --do_eval \
+#     --bf16_full_eval \
+#     --output_dir /scratch/gilbreth/amohanpa/Trial/
+
+python run_clm.py \
+    --model_name_or_path /scratch/gilbreth/amohanpa/gpt2/wikitext2/Simple1x15/WithInit/Thresh315/head-by-head-seq_10_8_initfixed/ \
+    --dataset_name wikitext \
+    --dataset_config_name wikitext-2-raw-v1 \
+    --per_device_train_batch_size 8 \
+    --per_device_eval_batch_size 8 \
+    --do_eval \
+    --bf16_full_eval \
+    --output_dir /scratch/gilbreth/amohanpa/Trial/
