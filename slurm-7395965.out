@@ -1,0 +1,27 @@
+/var/spool/slurm/job7395965/slurm_script:9: command not found: module
+
+CommandNotFoundError: Your shell has not been properly configured to use 'conda activate'.
+To initialize your shell, run
+
+    $ conda init <SHELL_NAME>
+
+Currently supported shells are:
+  - bash
+  - fish
+  - tcsh
+  - xonsh
+  - zsh
+  - powershell
+
+See 'conda init --help' for more information and options.
+
+IMPORTANT: You may need to close and restart your shell after running 'conda init'.
+
+
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+ModuleNotFoundError: No module named 'huggingface_hub'
+Traceback (most recent call last):
+  File "script_with_return_value.py", line 3, in <module>
+    import torch 
+ModuleNotFoundError: No module named 'torch'
