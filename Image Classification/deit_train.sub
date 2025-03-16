@@ -1,0 +1,29 @@
+#!/bin/zsh
+#filename: whisper_small_train.sub
+
+#SBATCH --nodes=1
+#SBATCH --gres=gpu:1
+#SBATCH -A araghu-m
+#SBATCH --time=3-12:29:00
+
+module load anaconda/2020.11-py38
+conda activate /scratch/gilbreth/amohanpa/Vision4/
+
+# python train.py --data-dir /depot/araghu/data/Datasets/imagenet2012/ --train-split train --val-split val --batch-size 128 --lr 0.187 --warmup-epochs 0 --model deit_tiny_patch16_224.fb_in1k --pretrained --output /scratch/gilbreth/amohanpa/DeiT/ --epochs 10
+
+# for l in {8..11};
+# do 
+#   for h in {0..2};
+#   do
+#     echo $l
+#     echo $h
+#     python train.py --data-dir /depot/araghu/data/Datasets/imagenet2012/ --train-split train --val-split val --batch-size 128 --lr 0.187 --warmup-epochs 0 --model deit_tiny_patch16_224.fb_in1k --pretrained --output /scratch/gilbreth/amohanpa/DeiT/ --epochs 1 --layer_num_approx $l --head_num_approx $h
+#   done
+# done
+
+#  python train.py --data-dir /depot/araghu/data/Datasets/imagenet2012/ --train-split train --val-split val --batch-size 128 --lr 0.0001 --warmup-epochs 0 --model deit_tiny_patch16_224.fb_in1k --pretrained --output /scratch/gilbreth/amohanpa/DeiT/ReUSE2/ --epochs 3
+
+#Actual imagenet validation
+# python3 new_train.py --data-dir /depot/araghu/data/Datasets/imagenet2012/ --train-split train --val-split val --batch-size 128 --lr 0.0001 --warmup-epochs 0 --model deit_tiny_patch16_224.fb_in1k --pretrained --output /scratch/gilbreth/amohanpa/DeiT/ReUSE2/Trial/ --epochs 0
+# python train.py --dataset torch/cifar100 --data-dir /scratch/gilbreth/amohanpa/Cifar100/ --train-split train --val-split val --batch-size 128 --lr 0.0001 --warmup-epochs 0 --model deit_tiny_patch16_224.fb_in1k --pretrained --output /scratch/gilbreth/amohanpa/DeiT/ReUSE2/Trial/ --epochs 0
+python3 new_train.py --data-dir /scratch/gilbreth/amohanpa/imagenet2012/ --train-split train --val-split val --batch-size 128 --lr 0.0001 --warmup-epochs 0 --model deit_tiny_patch16_224.fb_in1k --pretrained --output /scratch/gilbreth/amohanpa/DeiT/ReUSE2/Trial/ --epochs 0

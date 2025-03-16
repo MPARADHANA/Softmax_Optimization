@@ -1,0 +1,12 @@
+#!/bin/zsh
+#filename: deit_seq.sub
+
+#SBATCH --nodes=1  
+#SBATCH --gres=gpu:1
+#SBATCH -A araghu-m
+#SBATCH --time=13-12:00:00
+
+module load anaconda/2020.11-py38
+conda activate /scratch/gilbreth/amohanpa/Vision2
+# python script_brert_base.py
+python script_with_return_value_cifar100.py
